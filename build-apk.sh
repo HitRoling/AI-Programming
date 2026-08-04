@@ -10,17 +10,16 @@ mkdir -p "$TOOLS" "$SDK/cmdline-tools" "$ROOT/public"
 export ANDROID_HOME="$SDK"
 export ANDROID_SDK_ROOT="$SDK"
 
-if command -v java >/dev/null 2>&1; then
-  JAVA_BIN="$(readlink -f "$(command -v java)")"
-  export JAVA_HOME="$(dirname "$(dirname "$JAVA_BIN")")"
-else
-  JDK_TGZ="$TOOLS/jdk17.tar.gz"
+JDK_TGZ="$TOOLS/jdk17.tar.gz"
+if [ ! -x "$TOOLS/jdk17/bin/java" ]; then
   curl -L --fail --retry 3 -o "$JDK_TGZ" "https://api.adoptium.net/v3/binary/latest/17/ga/linux/x64/jdk/hotspot/normal/eclipse"
+  rm -rf "$TOOLS/jdk17"
   mkdir -p "$TOOLS/jdk17"
   tar -xzf "$JDK_TGZ" -C "$TOOLS/jdk17" --strip-components=1
-  export JAVA_HOME="$TOOLS/jdk17"
 fi
+export JAVA_HOME="$TOOLS/jdk17"
 export PATH="$JAVA_HOME/bin:$PATH"
+java -version
 
 if [ ! -x "$SDK/cmdline-tools/latest/bin/sdkmanager" ]; then
   CMD_ZIP="$TOOLS/cmdline-tools.zip"
