@@ -6,6 +6,8 @@ on:
     paths:
       - 'mt5-phone-desktop/**'
       - '.github/workflows/build-mt5-phone-desktop.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
