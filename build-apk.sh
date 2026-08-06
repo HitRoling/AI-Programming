@@ -44,9 +44,10 @@ export PATH="$GRADLE_HOME/bin:$PATH"
 
 gradle -p "$ROOT/vehicle-km-log" --no-daemon --stacktrace assembleDebug
 cp "$ROOT/vehicle-km-log/app/build/outputs/apk/debug/app-debug.apk" "$ROOT/public/Vehicle-KM-Log.apk"
+base64 -w 0 "$ROOT/public/Vehicle-KM-Log.apk" > "$ROOT/public/Vehicle-KM-Log.apk.b64"
 
 cat > "$ROOT/public/index.html" <<'HTML'
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vehicle KM Log</title><style>body{font-family:Arial,sans-serif;background:#f3f4f6;color:#111827;display:grid;place-items:center;min-height:100vh;margin:0}.card{max-width:520px;padding:32px;text-align:center;background:#fff;border-radius:16px}.btn{display:inline-block;background:#0f766e;color:#fff;padding:16px 24px;border-radius:10px;text-decoration:none;font-weight:700}</style></head><body><div class="card"><h1>Vehicle KM Log</h1><p>Daily opening and closing kilometres, saved history and Excel export.</p><a class="btn" href="/Vehicle-KM-Log.apk" download>Download APK</a></div></body></html>
 HTML
 
-ls -lh "$ROOT/public/Vehicle-KM-Log.apk"
+ls -lh "$ROOT/public/Vehicle-KM-Log.apk" "$ROOT/public/Vehicle-KM-Log.apk.b64"
