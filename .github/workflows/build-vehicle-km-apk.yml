@@ -1,6 +1,8 @@
 name: Build Vehicle KM APK
 
 on:
+  push:
+    branches: [vehicle-km-apk-20260806]
   pull_request:
     branches: [main]
   workflow_dispatch:
